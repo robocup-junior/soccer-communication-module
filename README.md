@@ -34,5 +34,4 @@ We will be very sad, and this cat may cry.
 <img src="https://github.com/robocup-junior/soccer-communication-module/raw/master/.readme_images/cat.png?raw=true" width="200" />
 
 ## Not working?
-In case of any questions, do not hesitate to ask the judges for help. Or if there are some more unexpected
-problems, you can text on whatsapp / call me at +421917888170 we will figure something out (: .
+If you have problems or questions you can look into and if nobody has posted your problem yet open a [GitHub issue](https://github.com/robocup-junior/soccer-communication-module/issues/new), post on [the forum](https://junior.forum.robocup.org/c/robocupjunior-soccer/5) or ask on the [RoboCupJunior Discord server](https://discord.gg/45pxMQY4nJ)
