@@ -1,37 +1,32 @@
-# Communication modules for RCJ Soccer SuperTeams
+# Communication modules for RCJ Soccer SuperTeams 2024
 
-![cartoon sad kitty](./.readme_images/module_pinout.png?raw=true)
+![modul photos](./.readme_images/modul_2024.png?raw=true)
 
 ## What / Why it is?
-To make RCJ Soccer SuperTeam games more manageable for judges and to bring a simple and robust
-way of robot to robot / robot to judge communication, we would like to introduce these modules.
+To make RCJ Soccer SuperTeam games more manageable for referees and to bring a simple and robust way of robot to robot / robot to referee communication, we would like to introduce these modules. This module does not count to the weight limit.
 
-## How does it work?
-These modules use Bluetooth to connect to the judge's phone, which can send start/stop signals to the
-module. So when judges want to stop a specific robot for some reason (out of bounds, start/stop game,
-damage...), they can do it easily and instantly. Also, it ensures a more precise timing of penalty time.
+## How to power it?
+The required way to power these modules is to connect GND to the negative (-) of your battery and BAT+ to the positive (+) of your battery without having any kind of switch between those connections when battery voltage is between 5.3 V and 25V.
 
-## How do I use it?
-It is really simple to connect this module. First, you need to supply power to this module, so connect the
-GND pin (written on the bottom side of modules – see picture above) to the GND of your robot.
+If your battery voltage is not between 5.3 V and 25V or there is some engineering reason why the first option is not realistic, you can use a 3V3 pin to provide 3.3V. The module must be able to draw at least 500mA at all times.
+This module needs to be powered at all times during the match, even when the robot is not on the field (out of bounds, damage), in order to be able to keep a stable communication connection.
 
-Then for power, you have two options:
-1. Connect voltage ranging from 4.8V to 20V to VCC pin.
-2. Connect 3.3V directly to 3.3V pin
-To get an actual stop/go signal, you also have multiple options:
-1. Read voltage on pin 19 or 18 (3.3V = GO , 0V = STOP) (the recommended way)
-2. Connect UART (RX, TX) ("G" = GO, "S" = STOP), default voltage of UART is 3.3V. If you need
-something different, connect that specific voltage to LOG V pin (for example, 5V, 1.8V...).
-
-## How do I test / where will I get this module?
-Our aim is to play a full module-enabled SuperTeam game on Saturday. We hence ask you to validate that
-your robots can work with them until the end of day on Friday. To test your robot, simply come to the Soccer
-part of the OC Office and ask for a Communication Module test – We would be happy to help!
-
-## What happens if I destroy this module?
-We will be very sad, and this cat may cry.
-
-<img src="https://github.com/robocup-junior/soccer-communication-module/raw/master/.readme_images/cat.png?raw=true" width="200" />
+## How to use it for communication between robots?
+The module is equipped with a display that shows a countdown for the duration of the Robot’s penalty. Teams are allowed to put robots back in the game according to rules when penalty time’s up on the display.
 
 ## Not working?
 If you have problems or questions you can look into and if nobody has posted your problem yet open a [GitHub issue](https://github.com/robocup-junior/soccer-communication-module/issues/new), post on [the forum](https://junior.forum.robocup.org/c/robocupjunior-soccer/5) or ask on the [RoboCupJunior Discord server](https://discord.gg/45pxMQY4nJ)
+
+
+## What is new from 2023?
+* Main change is in using ESP32C6 = improved connectivity/less interference
+* Using OLED display = time down counter for penalization time/ connection/ future proof
+* D+,D- used for 2 thinks = uploading program easily= firmware updates at home
+                                         = choosing communication canal in super team 00,01,10,11  = strategy in super team with communication finally possible
+* Using giro/accelerometer = able to measure robot speed, future proof, collision detection (0.25 cents for ocean of possibilities )
+* Power would be able to be provided directly from battery (up to 25V ) = no disconnecting during matches
+* Also we will provide simple PCBs acting as hubs so easier testing/ connecting modules for everyone
+* Multicolour print, pinout = cool, easier pinout reading, less damaged modules, more cool (it is cheap don't worry)
+* On competition = everyone will be required to go to technical control of module before actual games so better games
+* Still need to work on:
+* Make adapter hub for ev3/spike
