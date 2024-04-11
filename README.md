@@ -29,5 +29,9 @@ If you have problems or questions you can look into and if nobody has posted you
 * Also we will provide simple PCBs acting as hubs so easier testing / connecting modules for everyone
 * Multicolour print, pinout = cool, easier pinout reading, fewer damaged modules, higher coolness level (it is cheap, don't worry)
 * During competition: everyone will be required to go to technical control of the module before the actual games, hence better games
-* Could use some help with:
+
+## Could use some help with:
   * Make adapter hub for ev3/spike
+  * Adding more libraries with footprint/schematic/3D for Altium, Eagle, KiKad, EasyEDA, OrcaCAD and more ...
+  * Reporting errors/testing 
+
