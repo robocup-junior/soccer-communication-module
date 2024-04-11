@@ -11,8 +11,22 @@ The required way to power these modules is to connect GND to the negative (-) of
 If your battery voltage is not between 5.3 V and 25V or there is some engineering reason why the first option is not realistic, you can use a 3V3 pin to provide 3.3V. The module must be able to draw at least 500mA at all times.
 This module needs to be powered at all times during the match, even when the robot is not on the field (out of bounds, damage), in order to be able to keep a stable communication connection.
 
+## How to read the start/stop signal?
+To get start/stop information one can easily read from pins OUT1 or OUT2 where 3.3V = GO
+and 0V = STOP. The robot is required to respond to this stop/go information at all times for
+the duration of the game.
+
 ## How to use it for communication between robots?
-The module is equipped with a display that shows a countdown for the duration of the Robot’s penalty. Teams are allowed to put robots back in the game according to rules when penalty time’s up on the display.
+You can use RX, TX for wireless communication between robots using UART. Voltage of
+UART logic can be chosen using LOGV pin by connecting required voltage (3.3V - 5.5 V).
+Default voltage is 3.3V.
+You can also choose a communication channel by using A0,A1 pins. Overall, 4 channels are
+available (00, 01, 10, 11). Those pins can accept both 3.3V and 5V logic voltag
+
+## How to put robots back in the game?
+The module is equipped with a display that shows a countdown for the duration of the
+Robot’s penalty. Teams are allowed to put robots back in the game according to rules when
+penalty time’s up on the display.
 
 ## Not working?
 If you have problems or questions you can look into and if nobody has posted your problem yet open a [GitHub issue](https://github.com/robocup-junior/soccer-communication-module/issues/new), post on [the forum](https://junior.forum.robocup.org/c/robocupjunior-soccer/5) or ask on the [RoboCupJunior Discord server](https://discord.gg/45pxMQY4nJ)
