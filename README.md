@@ -1,6 +1,6 @@
 # Communication modules for RCJ Soccer SuperTeams 2024
 
-![modul photos](./.readme_images/modul_2024.png?raw=true)
+![modul photos](./.readme_images/rcjv3_dimensions.png?raw=true)
 
 ## What / Why it is?
 To make RCJ Soccer SuperTeam games more manageable for referees and to bring a simple and robust way of robot to robot / robot to referee communication, we would like to introduce these modules. This module does not count to the weight limit.
@@ -19,7 +19,6 @@ the duration of the game.
 ## How to use it for communication between robots?
 You can use RX, TX for wireless communication between robots using UART. Voltage of
 UART logic can be chosen using LOGV pin by connecting required voltage (3.3V - 5.5 V).
-Default voltage is 3.3V.
 You can also choose a communication channel by using A0,A1 pins. Overall, 4 channels are
 available (00, 01, 10, 11). Those pins can accept both 3.3V and 5V logic voltag
 
@@ -47,5 +46,9 @@ If you have problems or questions you can look into and if nobody has posted you
 ## Could use some help with:
   * Make adapter hub for ev3/spike
   * Adding more libraries with footprint/schematic/3D for Altium, Eagle, KiKad, EasyEDA, OrcaCAD and more ...
-  * Reporting errors/testing 
+  * Reporting errors/testing
+    
+## Currently working on:
+   * Making a new mobile app 
+   * Enabling giro/accelerometer
 
