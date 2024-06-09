@@ -27,6 +27,13 @@ The module is equipped with a display that shows a countdown for the duration of
 Robot’s penalty. Teams are allowed to put robots back in the game according to rules when
 penalty time’s up on the display.
 
+## How to mount it?
+Modul must be mounted on the robot so that it can be easily connected/disconnected and the display must be visible all the time. 
+We recommend mounting the module on the top of your robot and making some hub for it either directly on your PCB or using some protoboards, breadboard and so on.
+We also can provide a limited number of hub boards that we can give to make it easier for you so you can directly permanently attach this hub to your robot.
+
+![hub photo](./.readme_images/hub_image.png?raw=true)
+
 ## Not working?
 If you have problems or questions you can look into and if nobody has posted your problem yet open a [GitHub issue](https://github.com/robocup-junior/soccer-communication-module/issues/new), post on [the forum](https://junior.forum.robocup.org/c/robocupjunior-soccer/5) or ask on the [RoboCupJunior Discord server](https://discord.gg/45pxMQY4nJ)
 
