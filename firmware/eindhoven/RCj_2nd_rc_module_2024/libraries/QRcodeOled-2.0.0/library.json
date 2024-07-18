@@ -1,0 +1,24 @@
+{
+  "name": "QRcodeOled",
+  "version": "2.0.0",
+  "keywords": "qr code, ESP32, ESP8266, SSD1306, SSH1106",
+  "description": "QR code generation on OLED displays",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/yoprogramo/QRcodeOled"
+  },
+  "authors":
+  [
+    {
+        "name": "Jose Antonio Espinosa",
+        "email": "yoprogramo@gmail.com",
+        "url": "https://yoprogramo.com"
+    }
+  ],
+  "frameworks": "arduino",
+  "platforms": [
+    "espressif8266",
+    "espressif32"
+  ]
+}
