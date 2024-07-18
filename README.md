@@ -38,6 +38,15 @@ We also can provide a limited number of hub boards that we can give to make it e
 If you have problems or questions you can look into and if nobody has posted your problem yet open a [GitHub issue](https://github.com/robocup-junior/soccer-communication-module/issues/new), post on [the forum](https://junior.forum.robocup.org/c/robocupjunior-soccer/5) or ask on the [RoboCupJunior Discord server](https://discord.gg/45pxMQY4nJ)
 
 
+## How to control app
+For actions use double clicks (for example double click to robot buton for starting/stoping/penalty robot)
+For seting hold buton(for example hold robot buton for conections setings)
+
+For resetinng all timers start and stop all robots
+
+For adding score double click on it
+For -1 score hold score number
+
 ## What is new from 2023?
 * The main change is in using ESP32C6 = improved connectivity/less interference
 * Using OLED display = time down counter for penalization time / connection / future proof
