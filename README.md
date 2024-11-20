@@ -47,17 +47,7 @@ For resetinng all timers start and stop all robots
 For adding score double click on it
 For -1 score hold score number
 
-## What is new from 2023?
-* The main change is in using ESP32C6 = improved connectivity/less interference
-* Using OLED display = time down counter for penalization time / connection / future proof
-* D+,D- used for 2 things
-   1. uploading program easily => firmware updates at home
-   2. choosing communication canal in super team 00,01,10,11  = strategy in super team with communication finally possible
-* Using giro/accelerometer = able to measure robot speed, future proof, collision detection (0.25 cents for ocean of possibilities )
-* Power would be able to be provided directly from battery (up to 25V ) = no disconnecting during matches
-* Also we will provide simple PCBs acting as hubs so easier testing / connecting modules for everyone
-* Multicolour print, pinout = cool, easier pinout reading, fewer damaged modules, higher coolness level (it is cheap, don't worry)
-* During competition: everyone will be required to go to technical control of the module before the actual games, hence better games
+
 
 ## Could use some help with:
   * Make adapter hub for ev3/spike
@@ -68,3 +58,6 @@ For -1 score hold score number
    * Making a new mobile app 
    * Enabling giro/accelerometer
 
+# Hall of fame
+* App by Mato Faltus
+* Altium lib by Youssef Shaalan
