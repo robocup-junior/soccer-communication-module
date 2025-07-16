@@ -7,7 +7,7 @@
 
 #define OLEDDISPLAY
 
-//#include "qrcodedisplay.h"
+#include "qrcodedisplay.h"
 #include "OLEDDisplay.h"
 
 #define OLEDDISPLAY
