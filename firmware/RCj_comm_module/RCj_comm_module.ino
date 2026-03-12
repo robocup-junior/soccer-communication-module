@@ -17,6 +17,7 @@ void setup() {
     stm_init();   
 
     ble_start_server();
+
 }
 
 void loop() {

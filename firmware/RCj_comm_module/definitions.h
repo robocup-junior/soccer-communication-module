@@ -19,16 +19,30 @@
 #define DISCONNECT_HOLD_TIME    5000
 
 /*** GPIOs ***/
+//ESP-C5
 // I2C
-#define I2C_SDA_GPIO    6
-#define I2C_SCL_GPIO    7
+#define I2C_SDA_GPIO    2
+#define I2C_SCL_GPIO    3
 
 // Button
-#define BUTTON_GPIO     18
-#define BUTTON2_GPIO     9 
+#define BUTTON_GPIO     10
+#define BUTTON2_GPIO     7 
 
 // Status pins
-#define OUTPUT1_GPIO    20
-#define OUTPUT2_GPIO    19
+#define OUTPUT1_GPIO    9
+#define OUTPUT2_GPIO    8
+
+// ESP-C6
+// // I2C
+// #define I2C_SDA_GPIO    6
+// #define I2C_SCL_GPIO    7
+
+// // Button
+// #define BUTTON_GPIO     18
+// #define BUTTON2_GPIO     9 
+
+// // Status pins
+// #define OUTPUT1_GPIO    20
+// #define OUTPUT2_GPIO    19
 
 #endif // DEFINITIONS_H
