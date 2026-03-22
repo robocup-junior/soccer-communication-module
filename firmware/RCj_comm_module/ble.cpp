@@ -30,7 +30,7 @@ static QueueHandle_t ble_msg_queue;
 
 // Callbacks
 class MyServerCallbacks: public BLEServerCallbacks {
-    void onConnect(BLEServer* pServer, esp_ble_gatts_cb_param_t *param) override {
+    void onConnect(BLEServer* pServer) override {
         //Serial.println("Client connected");
         device_connected = true;
         //stm_set_state(STM_PLAY);
