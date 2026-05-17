@@ -2,7 +2,7 @@
 #define DEFINITIONS_H
 
 #define FW_VERSION_MAJOR    0
-#define FW_VERSION_MINOR    91
+#define FW_VERSION_MINOR    95
 #define FW_VERSION          (FW_VERSION_MAJOR*0xFF + FW_VERSION_MINOR)
 
 #define DEFAULT_INDICATOR   "--"
@@ -11,9 +11,14 @@
 #define UART_SPEED      115200
 
 // BLE
-#define BLE_NAME            "RCJ-soccer_module"
+//#define BLE_NAME            "RCJ-soccer_module"
+#define BLE_NAME            "RCJs-m_" + BLE_MAC_to_string()
 #define BLE_DATA_MAX_LENGTH 10
-#define BLE_QUEUE_MAX_SIZE  5
+#define BLE_QUEUE_MAX_SIZE  16
+#define BLE_CONN_INTERVAL_MIN 12     // 15 ms, units are 1.25 ms
+#define BLE_CONN_INTERVAL_MAX 24     // 30 ms, units are 1.25 ms
+#define BLE_CONN_LATENCY      0
+#define BLE_CONN_TIMEOUT      2000   // 20 s, units are 10 ms
 
 // Disconnect button hold time
 #define DISCONNECT_HOLD_TIME    5000

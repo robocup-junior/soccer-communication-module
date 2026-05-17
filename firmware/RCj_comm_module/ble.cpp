@@ -27,6 +27,16 @@ static bool device_connected = false;
 static String receive_data;
 static QueueHandle_t ble_msg_queue;
 
+static bool queue_ble_msg(const ble_msg_t &msg) {
+    if (xQueueSend(ble_msg_queue, (void *) &msg, 0) == pdTRUE) {
+        return true;
+    }
+
+    ble_msg_t dropped_msg;
+    xQueueReceive(ble_msg_queue, &dropped_msg, 0);
+    return xQueueSend(ble_msg_queue, (void *) &msg, 0) == pdTRUE;
+}
+
 
 // Callbacks
 class MyServerCallbacks: public BLEServerCallbacks {
@@ -36,6 +46,19 @@ class MyServerCallbacks: public BLEServerCallbacks {
         device_connected = true;
         //stm_set_state(STM_PLAY);
     }
+
+#if defined(CONFIG_NIMBLE_ENABLED)
+    void onConnect(BLEServer* pServer, ble_gap_conn_desc *desc) override {
+        device_connected = true;
+        pServer->requestConnParams(
+            desc->conn_handle,
+            BLE_CONN_INTERVAL_MIN,
+            BLE_CONN_INTERVAL_MAX,
+            BLE_CONN_LATENCY,
+            BLE_CONN_TIMEOUT
+        );
+    }
+#endif
 
     void onDisconnect(BLEServer* pServer) override {
         //Serial.println("Client disconnected");
@@ -59,7 +82,7 @@ class MyCallbacks: public BLECharacteristicCallbacks {
                 for (uint8_t i = 0; i < receive_data.length() - 1; i++) {
                     msg.data[i] = receive_data[i+1];
                 }
-                xQueueSend(ble_msg_queue, (void *) &msg, 0);
+                queue_ble_msg(msg);
             }
         }
     }
@@ -87,16 +110,16 @@ int8_t ble_start_server() {
     // Create write characteristic
     pRxCharacteristic = pService->createCharacteristic(
                                             CHARACTERISTIC_UUID_RX,
-                                            BLECharacteristic::PROPERTY_WRITE
+                                            BLECharacteristic::PROPERTY_WRITE |
+                                            BLECharacteristic::PROPERTY_WRITE_NR
                                             );  
     pRxCharacteristic->setCallbacks(new MyCallbacks()); 
 
     // Create notify (read) characteristic
     pTxCharacteristic = pService->createCharacteristic(
                                             CHARACTERISTIC_UUID_TX,
-                                            BLECharacteristic::PROPERTY_INDICATE
+                                            BLECharacteristic::PROPERTY_NOTIFY
                                             );
-    pTxCharacteristic->addDescriptor(new BLE2902());
 
     // Start the service
     pService->start();
@@ -122,10 +145,9 @@ int8_t ble_disconnect() {
 int8_t ble_send_msg(uint8_t *data, size_t length) {
     pTxCharacteristic->setValue(data, length);
     //Serial.println("Data set");
-    pTxCharacteristic->indicate();
+    pTxCharacteristic->notify();
     //Serial.println("Data send");
 
     return ESP_OK;
 }
-
 
