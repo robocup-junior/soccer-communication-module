@@ -37,6 +37,18 @@ We also can provide a limited number of hub boards that we can give to make it e
 ## Not working?
 If you have problems or questions you can look into and if nobody has posted your problem yet open a [GitHub issue](https://github.com/robocup-junior/soccer-communication-module/issues/new), post on [the forum](https://junior.forum.robocup.org/c/robocupjunior-soccer/5) or ask on the [RoboCupJunior Discord server](https://discord.gg/45pxMQY4nJ)
 
+## Firmware releases
+Firmware releases are built automatically from Git tags matching `fw-*` or `v*`.
+After pushing a tag, GitHub Actions builds the ESP32-C5 firmware, creates a GitHub Release with the `.bin` files, and deploys the latest web flasher to GitHub Pages.
+
+Example:
+
+```sh
+git tag fw-v0.95
+git push origin fw-v0.95
+```
+
+The web flasher uses Web Serial, so users need desktop Chrome or Edge.
 
 ## How to control app
 For actions use double clicks (for example double click to robot buton for starting/stoping/penalty robot)

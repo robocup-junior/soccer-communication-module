@@ -11,7 +11,6 @@
 #define UART_SPEED      115200
 
 // BLE
-//#define BLE_NAME            "RCJ-soccer_module"
 #define BLE_NAME            "RCJs-m_" + BLE_MAC_to_string()
 #define BLE_DATA_MAX_LENGTH 10
 #define BLE_QUEUE_MAX_SIZE  16

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RCJ Soccer Module Flasher</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="tool">
+        <div class="copy">
+          <p class="eyebrow">Firmware flasher</p>
+          <h1>RCJ Soccer Communication Module</h1>
+          <p class="status">
+            Latest firmware:
+            <strong id="firmware-version">loading...</strong>
+          </p>
+          <div class="installer">
+            <esp-web-install-button manifest="manifest.json"></esp-web-install-button>
+          </div>
+          <p class="note">Desktop Chrome or Edge is required. Connect the module over USB before starting.</p>
+          <a id="release-link" class="release-link" href="#" hidden>Open GitHub release</a>
+        </div>
+        <figure class="module-photo">
+          <img src="assets/modul_2024.png" alt="RCJ Soccer communication module">
+        </figure>
+      </section>
+
+      <section class="details" aria-label="Firmware details">
+        <div>
+          <span>Target</span>
+          <strong id="chip-family">ESP32-C5</strong>
+        </div>
+        <div>
+          <span>Image</span>
+          <strong id="firmware-size">loading...</strong>
+        </div>
+        <div>
+          <span>Checksum</span>
+          <strong id="firmware-hash">loading...</strong>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
