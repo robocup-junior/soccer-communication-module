@@ -19,6 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      pages: write
+      id-token: write
 
     steps:
       - name: Checkout repository
@@ -47,6 +49,14 @@ jobs:
           name: firmware-release
           path: dist
           if-no-files-found: error
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
 
   release:
     name: Publish GitHub Release
@@ -83,29 +93,17 @@ jobs:
           fi
 
   deploy-pages:
-    name: Publish Web Flasher to gh-pages
+    name: Deploy Web Flasher
     needs: build
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Download firmware artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: firmware-release
-          path: dist
-
-      - name: Push site to gh-pages branch
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: |
-          cd dist
-          git init
-          git checkout -b gh-pages
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .
-          git commit -m "Deploy firmware flasher for ${{ github.ref_name }}"
-          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
-          git push --force origin gh-pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
