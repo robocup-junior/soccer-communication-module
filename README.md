@@ -48,7 +48,7 @@ git tag fw-v0.95
 git push origin fw-v0.95
 ```
 
-The web flasher uses Web Serial, so users need desktop Chrome or Edge.
+The web flasher uses Web Serial with the ESP32-C5 USB reset path, so users need desktop Chrome or Edge.
 
 ## How to control app
 For actions use double clicks (for example double click to robot buton for starting/stoping/penalty robot)

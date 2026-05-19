@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>RCJ Soccer Module Flasher</title>
     <link rel="stylesheet" href="styles.css">
-    <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
-    <script defer src="app.js"></script>
+    <script type="module" src="app.js"></script>
   </head>
   <body>
     <main class="shell">
@@ -19,7 +18,19 @@
             <strong id="firmware-version">loading...</strong>
           </p>
           <div class="installer">
-            <esp-web-install-button manifest="manifest.json"></esp-web-install-button>
+            <button id="install-button" class="install-button" type="button">Install firmware</button>
+            <label class="erase-toggle">
+              <input id="erase-first" type="checkbox">
+              Erase flash first
+            </label>
+          </div>
+          <div class="flash-panel" aria-live="polite">
+            <div class="progress-row">
+              <span id="flash-status">Ready</span>
+              <span id="flash-percent">0%</span>
+            </div>
+            <progress id="flash-progress" value="0" max="100"></progress>
+            <pre id="flash-log" class="flash-log" aria-label="Flash log"></pre>
           </div>
           <p class="note">Desktop Chrome or Edge is required. Connect the module over USB before starting.</p>
           <a id="release-link" class="release-link" href="#" hidden>Open GitHub release</a>

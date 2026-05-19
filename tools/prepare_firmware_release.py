@@ -178,6 +178,11 @@ def main() -> int:
         "builds": [
             {
                 "chipFamily": chip_family(chip),
+                "flashSettings": {
+                    "flashMode": flasher_args["flash_settings"]["flash_mode"],
+                    "flashFreq": flasher_args["flash_settings"]["flash_freq"],
+                    "flashSize": flasher_args["flash_settings"]["flash_size"],
+                },
                 "parts": [
                     {
                         "path": checksums["merged"]["path"],

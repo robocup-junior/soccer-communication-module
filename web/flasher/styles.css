@@ -75,8 +75,111 @@ h1 {
 }
 
 .installer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
   margin-top: 28px;
-  min-height: 52px;
+  min-height: 48px;
+}
+
+.install-button {
+  min-height: 48px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #ffffff;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.install-button:hover {
+  background: var(--accent-strong);
+}
+
+.install-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.erase-toggle {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  color: var(--muted);
+  font-size: 0.94rem;
+  font-weight: 700;
+}
+
+.erase-toggle input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+}
+
+.flash-panel {
+  margin-top: 18px;
+}
+
+.progress-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 800;
+}
+
+#flash-status[data-state="busy"] {
+  color: var(--accent-strong);
+}
+
+#flash-status[data-state="success"] {
+  color: #14784f;
+}
+
+#flash-status[data-state="error"] {
+  color: var(--signal);
+}
+
+progress {
+  width: 100%;
+  height: 12px;
+  margin-top: 10px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 999px;
+  background: #e3e8ee;
+}
+
+progress::-webkit-progress-bar {
+  background: #e3e8ee;
+}
+
+progress::-webkit-progress-value {
+  background: var(--accent);
+}
+
+progress::-moz-progress-bar {
+  background: var(--accent);
+}
+
+.flash-log {
+  width: 100%;
+  max-height: 150px;
+  margin: 14px 0 0;
+  padding: 12px 14px;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #101820;
+  color: #d6e2ee;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  white-space: pre-wrap;
 }
 
 .note {
@@ -146,11 +249,6 @@ h1 {
   font-size: 0.96rem;
 }
 
-esp-web-install-button {
-  --esp-tools-button-color: var(--accent);
-  --esp-tools-button-text-color: #ffffff;
-}
-
 @media (max-width: 780px) {
   .shell {
     width: min(100% - 20px, 560px);
@@ -177,5 +275,13 @@ esp-web-install-button {
 
   .module-photo {
     min-height: 260px;
+  }
+
+  .install-button {
+    width: 100%;
+  }
+
+  .erase-toggle {
+    width: 100%;
   }
 }
