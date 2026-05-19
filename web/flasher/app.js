@@ -10,7 +10,6 @@ const sizeEl = document.querySelector("#firmware-size");
 const hashEl = document.querySelector("#firmware-hash");
 const releaseLink = document.querySelector("#release-link");
 const installButton = document.querySelector("#install-button");
-const eraseFirst = document.querySelector("#erase-first");
 const flashStatus = document.querySelector("#flash-status");
 const flashPercent = document.querySelector("#flash-percent");
 const flashProgress = document.querySelector("#flash-progress");
@@ -36,6 +35,8 @@ const loadJson = async (path) => {
   if (!response.ok) throw new Error(`${path}: HTTP ${response.status}`);
   return response.json();
 };
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const setStatus = (message, state = "idle") => {
   flashStatus.textContent = message;
@@ -149,6 +150,16 @@ const disconnectQuietly = async (transport) => {
   }
 };
 
+const hardResetViaUsbSerial = async (transport) => {
+  appendLog("Hard resetting via USB serial RTS pulse...");
+  await transport.setDTR(false);
+  await transport.setRTS(true);
+  await sleep(200);
+  await transport.setRTS(false);
+  await sleep(200);
+  await transport.setDTR(false);
+};
+
 const flashFirmware = async () => {
   if (isFlashing) return;
   isFlashing = true;
@@ -197,7 +208,7 @@ const flashFirmware = async () => {
       flashMode: flashSettings.flashMode || "keep",
       flashFreq: flashSettings.flashFreq || "keep",
       flashSize: flashSettings.flashSize || "keep",
-      eraseAll: eraseFirst.checked,
+      eraseAll: true,
       compress: true,
       reportProgress: (_fileIndex, written, total) => {
         setProgress(total > 0 ? (written / total) * 100 : 0);
@@ -206,7 +217,7 @@ const flashFirmware = async () => {
 
     setStatus("Resetting module...", "busy");
     try {
-      await loader.after("hard_reset", true);
+      await hardResetViaUsbSerial(transport);
     } catch (resetError) {
       appendLog(`Reset after flashing failed: ${explainError(resetError)}`);
     }

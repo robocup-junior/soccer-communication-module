@@ -104,19 +104,11 @@ h1 {
   opacity: 0.58;
 }
 
-.erase-toggle {
-  display: inline-flex;
-  gap: 8px;
-  align-items: center;
+.erase-note {
+  max-width: 28ch;
   color: var(--muted);
   font-size: 0.94rem;
   font-weight: 700;
-}
-
-.erase-toggle input {
-  width: 18px;
-  height: 18px;
-  accent-color: var(--accent);
 }
 
 .flash-panel {
@@ -281,7 +273,7 @@ progress::-moz-progress-bar {
     width: 100%;
   }
 
-  .erase-toggle {
+  .erase-note {
     width: 100%;
   }
 }
