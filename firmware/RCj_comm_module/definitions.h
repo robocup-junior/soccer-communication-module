@@ -2,7 +2,7 @@
 #define DEFINITIONS_H
 
 #define FW_VERSION_MAJOR    0
-#define FW_VERSION_MINOR    95
+#define FW_VERSION_MINOR    96
 #define FW_VERSION          (FW_VERSION_MAJOR*0xFF + FW_VERSION_MINOR)
 
 #define DEFAULT_INDICATOR   "--"
