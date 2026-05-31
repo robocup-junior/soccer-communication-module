@@ -101,8 +101,9 @@ push tag (fw-* | v*)
 Run inside the IDF env after `idf.py build`. Steps:
 
 1. Reads `build/flasher_args.json` (chip, flash settings, flash files + offsets).
-2. Copies the static flasher site (`web/flasher/`) into `dist/`, plus
-   `.readme_images/modul_2024.png` → `dist/assets/`.
+2. Copies the static flasher site (`web/flasher/`) into `dist/`, plus the V7 board render
+   `.readme_images/3D_PCB1_2026-05-21 v41.png` → `dist/assets/module.png` (referenced by
+   `web/flasher/index.html`).
 3. Copies build artifacts into `dist/firmware/` with versioned names:
    - `rcj_comm_module-<ver>.bin` (app)
    - `rcj_comm_module-<ver>-bootloader.bin`

@@ -1,9 +1,13 @@
 # 08 — Mobile App Interaction
 
-The mobile referee/control app is **not source-controlled** in this repo (only a binary
-`mobileAPP/RCj2025_APK-...zip` is present and was not unpacked/analyzed). Everything below is
-**inferred** from the firmware's BLE behavior, the public `README.md` ("How to control app"
-section), and commit history. Treat the app's exact UI as **unknown / to confirm**.
+The mobile referee/control app lives in its **own repository**:
+[`robocup-junior/soccer-referee-app`](https://github.com/robocup-junior/soccer-referee-app),
+and is published on
+[Google Play](https://play.google.com/store/apps/details?id=com.robocup.rcj_soccer). It is
+**not source-controlled in this repo** (the old `mobileAPP/` APK zip was removed on
+2026-05-31). Everything below is **inferred** from the firmware's BLE behavior, the public
+`README.md` ("Mobile app" section), and commit history. Treat the app's exact UI as
+**unknown / to confirm** — check the app repo for specifics.
 
 ## What can be inferred about the app
 
@@ -14,8 +18,8 @@ section), and commit history. Treat the app's exact UI as **unknown / to confirm
 - It sends one-byte-id command frames (`[msg_id][payload...]`) over the RX characteristic.
 - It receives notifications on the TX characteristic: `PING` echoes, `FW_VERSION` reply, and
   the module-initiated `ASK_FOR_PENALTY` / `DISCONNECT` messages.
-- Made by "Mato Faltus" (README Hall of Fame). A new app is "currently working on" per
-  README; `mobileAPP` zip is dated 2025.
+- Made by "Mato Faltus" (README Hall of Fame). Published on Google Play; source at
+  [`robocup-junior/soccer-referee-app`](https://github.com/robocup-junior/soccer-referee-app).
 
 ## BLE command mapping (app action → firmware)
 
@@ -74,5 +78,5 @@ Two distinct paths:
 ## Source files reviewed
 
 `README.md`, `ble_processing.cpp/.h`, `functions.cpp`, `ble.cpp`, commit `e423b0d`.
-(`mobileAPP/RCj2025_APK-...zip` present but not unpacked.)
+(App source is in the separate `robocup-junior/soccer-referee-app` repo.)
 </content>

@@ -54,13 +54,13 @@ def copy_static_site(web_src: Path, output_dir: Path) -> None:
 
 
 def copy_optional_assets(repo_root: Path, output_dir: Path) -> None:
-    image = repo_root / ".readme_images" / "modul_2024.png"
+    image = repo_root / ".readme_images" / "3D_PCB1_2026-05-21 v41.png"
     if not image.exists():
         return
 
     assets_dir = output_dir / "assets"
     assets_dir.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(image, assets_dir / image.name)
+    shutil.copy2(image, assets_dir / "module.png")
 
 
 def load_flasher_args(project_dir: Path) -> dict:

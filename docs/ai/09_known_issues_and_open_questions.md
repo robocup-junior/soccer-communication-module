@@ -3,15 +3,18 @@
 Consolidated risks, contradictions, TODOs, and unknowns. Resolve the **blockers** before
 implementing any new-hardware feature.
 
-## Contradictions: public docs vs code
+## Public docs vs code
 
-| Topic | Public README / 2024 PDF says | Code reality |
-|-------|-------------------------------|--------------|
-| MCU | (implies 2024 ESP32-C6 era hardware) | ESP32-**C5** target; C6 pins commented out |
-| Robot-to-robot comms | "Use RX, TX for UART… LOGV… A0/A1 channels (00/01/10/11)" | **No UART comms protocol in firmware**; `Serial` is debug-only |
-| Workflow | Arduino-style sketch implied | ESP-IDF + Arduino-as-component; CI uses `main/app_main.cpp` |
-| Board version | "RCJ Soccer SuperTeams 2024", `modul_v3`, gerbers dated 2024-04-05 | New board silk = **"V7 2026"**, branding "robofuze" (renders only) |
-| Schematic | `pcb_schematic/SCH.pdf` (2024) | Does **not** match the new V7 board; new schematic absent |
+The public `README.md` was **rewritten on 2026-05-31** to match the V7/2026 (C5) hardware, so
+the old contradictions below are now **reconciled** — kept here as history.
+
+| Topic | Old README / 2024 PDF said | Reality (now reflected in README) |
+|-------|-----------------------------|-----------------------------------|
+| MCU | (implied 2024 ESP32-C6 hardware) | ESP32-**C5** (`master`); C6 lives on `legacy/esp32-c6` |
+| Robot-to-robot comms | "Use RX, TX for UART… LOGV… A0/A1 channels (00/01/10/11)" | **No robot-to-robot protocol in firmware** (planned); no LOGV/A0/A1 on V7. README now says so. |
+| Start/stop readout | OUT pins only | OUT pins **or** `PLAY`/`STOP` on UART0 |
+| Board version | "RCJ Soccer SuperTeams 2024", `modul_v3` | New board silk **"V7 2026"** ("robofuze"); README title de-yeared |
+| Schematic | `pcb_schematic/SCH.pdf` (2024) | V7 schematic `SCH_Schematic1_2026-05-31.pdf` present; old 2024 files removed |
 
 ## TODO / suspicious comments in code
 

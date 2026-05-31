@@ -6,11 +6,11 @@ source code, git history, build/release tooling, the web flasher, and the new-ha
 3D render images. Where something could not be proven from the repository it is marked
 as **inferred**, **unknown**, or **to verify from schematic**.
 
-> ⚠️ The public top-level `README.md` and the `RCJ 2024 communication modules.pdf` are
-> useful but **partly outdated**. They describe the older 2024 hardware (UART/RX-TX,
-> A0/A1 channel pins, LOGV) and an Arduino-style workflow. The firmware in this repo now
-> targets **ESP32-C5** and is built with **ESP-IDF**. Treat this `docs/ai/` folder and
-> the live source code as the source of truth over the public docs.
+> ℹ️ The public top-level `README.md` was rewritten on 2026-05-31 to describe the **current
+> V7/2026 (ESP32-C5)** hardware (USB-C, RGB LED, buzzer, 3 buttons, supercap; no more
+> A0/A1/LOGV pins). The old `RCJ 2024 communication modules.pdf` and 2024 design files were
+> removed from `master` (they remain in git history / on `legacy/esp32-c6`). This `docs/ai/`
+> folder and the live source code remain the most detailed source of truth.
 
 > 📌 **Also read [`firmware/RCj_comm_module/AI_HANDOFF.md`](../../firmware/RCj_comm_module/AI_HANDOFF.md).**
 > It is the handoff note written by the previous single-agent session that did the BLE
@@ -93,7 +93,7 @@ while waiting for a connection).
 - The **V7/2026 schematic is in the repo**: `pcb_schematic/SCH_Schematic1_2026-05-31.pdf`,
   with a pin-by-pin reference at `docs/ai/ESP32C5_RCJ_modul_hardware_reference.md`
   (**authoritative hardware source**). The firmware pin map matches it for all implemented
-  peripherals. `pcb_schematic/SCH.pdf` and the Altium/Eagle libraries are the **older 2024**
-  board — reference only.
+  peripherals. The older 2024 (C6) schematic/libraries were removed from `master` on
+  2026-05-31 — find them in git history or on the `legacy/esp32-c6` branch.
 </content>
 </invoke>

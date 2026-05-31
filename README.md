@@ -1,57 +1,68 @@
-# Communication modules for RCJ Soccer SuperTeams 2024
+# Communication modules for RCJ Soccer SuperTeams
 
-![modul photos](./.readme_images/rcjv3_dimensions.png?raw=true)
+![RCJ Soccer communication module](./.readme_images/3D_PCB1_2026-05-21%20v41.png?raw=true)
 
 ## What / Why it is?
-To make RCJ Soccer SuperTeam games more manageable for referees and to bring a simple and robust way of robot to robot / robot to referee communication, we would like to introduce these modules. This module does not count to the weight limit.
+To make RCJ Soccer SuperTeam games more manageable for referees and to bring a simple and robust way of robot-to-robot / robot-to-referee communication, we would like to introduce these modules. This module does not count toward the weight limit.
+
+The current module (board **V7 / 2026**) is built around an **ESP32-C5**. A referee controls it over **Bluetooth Low Energy (BLE)** from the mobile app, and the module relays the match state (start/stop, penalty, half-time, game over) to the robot. It has an OLED display, three buttons, an RGB LED, a buzzer, a supercapacitor power backup, and a USB-C port for power and firmware flashing.
 
 ## How to power it?
-The required way to power these modules is to connect GND to the negative (-) of your battery and BAT+ to the positive (+) of your battery without having any kind of switch between those connections when battery voltage is between 5.3 V and 25V.
+Power the module from your robot battery through the power header: connect **GND** to battery negative (−) and **VIN** to battery positive (+), with **no switch** in between. The input accepts **4.5 V – 50 V** (the on-board buck regulator is rated higher, but RoboCupJunior rules cap robot voltage at 50 V).
 
-If your battery voltage is not between 5.3 V and 25V or there is some engineering reason why the first option is not realistic, you can use a 3V3 pin to provide 3.3V. The module must be able to draw at least 500mA at all times.
-This module needs to be powered at all times during the match, even when the robot is not on the field (out of bounds, damage), in order to be able to keep a stable communication connection.
+Alternatively you can supply **3.3 V** directly to the 3V3 pin, or power the board over **USB-C** (VBUS). The module must be able to draw at least **500 mA** at all times.
+
+The module needs to be powered for the whole match — even when the robot is off the field (out of bounds, damage) — so it can keep a stable communication connection. A small on-board **supercapacitor** rides through brief supply dropouts (e.g. a battery dip).
 
 ## How to read the start/stop signal?
-To get start/stop information one can easily read from pins OUT1 or OUT2 where 3.3V = GO
-and 0V = STOP. The robot is required to respond to this stop/go information at all times for
-the duration of the game.
+The robot must respond to the start/stop signal at all times for the duration of the game. There are two ways to read it:
+
+- **Output pins** — read `OUT1` or `OUT2`, where **3.3 V = GO** and **0 V = STOP**.
+- **UART** — the module also prints `PLAY` / `STOP` on its serial line (UART0 on the U3 header) whenever the state changes, for robots that prefer to read it over serial.
 
 ## How to use it for communication between robots?
-You can use RX, TX for wireless communication between robots using UART. Voltage of
-UART logic can be chosen using LOGV pin by connecting required voltage (3.3V - 5.5 V).
-You can also choose a communication channel by using A0,A1 pins. Overall, 4 channels are
-available (00, 01, 10, 11). Those pins can accept both 3.3V and 5V logic voltag
+Direct robot-to-robot communication is **planned for a future firmware release**. The current firmware relays the referee's start/stop (and penalty/half-time/game-over) state only — via the output pins or UART as described above. (The earlier channel-select `A0`/`A1` pins and the `LOGV` UART-level pin from the 2024 board are **not** present on this hardware.)
 
 ## How to put robots back in the game?
-The module is equipped with a display that shows a countdown for the duration of the
-Robot’s penalty. Teams are allowed to put robots back in the game according to rules when
-penalty time’s up on the display.
+The module has a display that shows a countdown for the duration of a robot's penalty. Teams may put robots back in the game, according to the rules, when the penalty time is up on the display.
 
 ## How to mount it?
-Module must be mounted on the robot so that it can be easily connected/disconnected and the display must be visible all the time. 
-We recommend mounting the module on the top of your robot and making some hub for it either directly on your PCB or using some protoboards, breadboard and so on.
-We also can provide a limited number of hub boards that we can give to make it easier for you so you can directly permanently attach this hub to your robot.
+Mount the module on the robot so it can be easily connected/disconnected and the display stays visible at all times. We recommend mounting it on top of the robot and making a hub for it — either directly on your PCB or using protoboard/breadboard. We can also provide a limited number of hub boards that you can permanently attach to your robot.
 
 ![hub photo](./.readme_images/hub_image.png?raw=true)
 
+## Mobile app
+The referee/control app is available on Google Play:
+
+**➡️ [RCJ Soccer app on Google Play](https://play.google.com/store/apps/details?id=com.robocup.rcj_soccer)**
+
+The app's source code lives in its own repository: **[robocup-junior/soccer-referee-app](https://github.com/robocup-junior/soccer-referee-app)**.
+
+Usage:
+- **Double-click** for actions (e.g. double-click the robot button to start/stop/penalty a robot).
+- **Hold** for settings (e.g. hold the robot button for connection settings).
+- Use start/stop to reset all timers and start/stop all robots.
+- **Double-click** a score to add a point; **hold** a score number for −1.
+
 ## Not working?
-If you have problems or questions you can look into and if nobody has posted your problem yet open a [GitHub issue](https://github.com/robocup-junior/soccer-communication-module/issues/new), post on [the forum](https://junior.forum.robocup.org/c/robocupjunior-soccer/5) or ask on the [RoboCupJunior Discord server](https://discord.gg/45pxMQY4nJ)
+If you have problems or questions, check the existing issues and — if nobody has posted yours yet — open a [GitHub issue](https://github.com/robocup-junior/soccer-communication-module/issues/new), post on [the forum](https://junior.forum.robocup.org/c/robocupjunior-soccer/5), or ask on the [RoboCupJunior Discord server](https://discord.gg/45pxMQY4nJ).
 
-## Firmware releases
-Firmware releases are built automatically from Git tags matching `fw-*` or `v*`.
-After pushing a tag, GitHub Actions builds the ESP32-C5 firmware, creates a GitHub Release with the `.bin` files, and deploys the latest web flasher to GitHub Pages.
+## Firmware & flashing
+The easiest way to flash the current module is the **web flasher** (no tools to install):
 
-Example:
+**➡️ [Web flasher](https://robocup-junior.github.io/soccer-communication-module/)** — connect the module over USB-C and flash from the browser.
+
+> The web flasher uses the Web Serial API, so you need **desktop Chrome or Edge**.
+
+Firmware releases are built automatically from Git tags matching `fw-*` or `v*`. Pushing a tag makes GitHub Actions build the ESP32-C5 firmware, publish a GitHub Release with the `.bin` files, and deploy the latest web flasher to GitHub Pages:
 
 ```sh
-git tag fw-v0.95
-git push origin fw-v0.95
+git tag fw-v0.97
+git push origin fw-v0.97
 ```
 
-The web flasher uses Web Serial with the ESP32-C5 USB reset path, so users need desktop Chrome or Edge.
-
 ## Legacy 2024 (ESP32-C6) modules
-The older 2024 board uses an **ESP32-C6** (no USB-C connector) instead of the current ESP32-C5. It is still supported with a final, maintained firmware on the **`legacy/esp32-c6`** branch. These builds are published as **GitHub Release assets** (tags `legacy-c6-*`); there is no web flasher for them.
+The older 2024 board uses an **ESP32-C6** (no USB-C connector) instead of the current ESP32-C5. It is still supported with a final, maintained firmware on the **[`legacy/esp32-c6`](https://github.com/robocup-junior/soccer-communication-module/tree/legacy/esp32-c6)** branch. These builds are published as **GitHub Release assets** (tags `legacy-c6-*`); there is no web flasher for them.
 
 **Flashing (native USB — recommended):** The C6's USB D+/D− are broken out on the module's programming header. Wire them to a USB port (the module enumerates as a serial device), then flash the single merged image with full erase:
 
@@ -61,25 +72,14 @@ esptool --chip esp32c6 -p <PORT> write_flash --erase-all 0x0 rcj_comm_module-<ve
 
 A UART path also exists via the level-shifted RX/TX header pins, but it needs the `LOGV` pin powered at 3.3 V and manual download-mode entry (hold IO9/BOOT low, pulse EN), so native USB is easier. Either path can use the special flashing jig PCB.
 
-## How to control app
-For actions use double clicks (for example double click to robot buton for starting/stoping/penalty robot)
-For seting hold buton(for example hold robot buton for conections setings)
-
-For resetinng all timers start and stop all robots
-
-For adding score double click on it
-For -1 score hold score number
-
-
-
 ## Could use some help with:
-  * Make adapter hub for ev3/spike
-  * Adding more libraries with footprint/schematic/3D for Altium, Eagle, KiKad, EasyEDA, OrcaCAD and more ...
-  * Reporting errors/testing
-    
+  * Make an adapter hub for EV3/SPIKE
+  * Adding more libraries with footprint/schematic/3D for Altium, Eagle, KiCad, EasyEDA, OrcaCAD and more …
+  * Reporting errors / testing
+
 ## Currently working on:
-   * Making a new mobile app 
-   * Enabling giro/accelerometer
+   * Robot-to-robot communication
+   * RGB LED & buzzer feedback
 
 # Hall of fame
 * App by Mato Faltus
