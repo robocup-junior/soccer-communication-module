@@ -50,6 +50,17 @@ git push origin fw-v0.95
 
 The web flasher uses Web Serial with the ESP32-C5 USB reset path, so users need desktop Chrome or Edge.
 
+## Legacy 2024 (ESP32-C6) modules
+The older 2024 board uses an **ESP32-C6** (no USB-C connector) instead of the current ESP32-C5. It is still supported with a final, maintained firmware on the **`legacy/esp32-c6`** branch. These builds are published as **GitHub Release assets** (tags `legacy-c6-*`); there is no web flasher for them.
+
+**Flashing (native USB — recommended):** The C6's USB D+/D− are broken out on the module's programming header. Wire them to a USB port (the module enumerates as a serial device), then flash the single merged image with full erase:
+
+```sh
+esptool --chip esp32c6 -p <PORT> write_flash --erase-all 0x0 rcj_comm_module-<ver>-merged.bin
+```
+
+A UART path also exists via the level-shifted RX/TX header pins, but it needs the `LOGV` pin powered at 3.3 V and manual download-mode entry (hold IO9/BOOT low, pulse EN), so native USB is easier. Either path can use the special flashing jig PCB.
+
 ## How to control app
 For actions use double clicks (for example double click to robot buton for starting/stoping/penalty robot)
 For seting hold buton(for example hold robot buton for conections setings)
