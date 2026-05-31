@@ -7,3 +7,21 @@ CONFIG_BT_NIMBLE_ENABLED=y
 CONFIG_BT_CONTROLLER_ENABLED=y
 CONFIG_BT_NIMBLE_ROLE_PERIPHERAL=y
 CONFIG_BT_NIMBLE_GATT_SERVER=y
+
+# --- Flash size ---
+# Physical part reads 8 MB via JEDEC ID (esptool flash_id: mfr 0x20, dev 0x4017),
+# despite the "N16R4" label in the hardware docs. Match the real chip to avoid the
+# "Detected size larger than image header" warning and bad flash mapping.
+CONFIG_ESPTOOLPY_FLASHSIZE_8MB=y
+CONFIG_ESPTOOLPY_FLASHSIZE="8MB"
+
+# --- Released-build UART cleanliness ---
+# Robots may read PLAY/STOP from the UART0 line (U3 TX_OUT). Keep that line clean:
+# silence bootloader + ESP-IDF + Arduino-HAL logs so only the Arduino Serial output
+# ("PLAY"/"STOP") appears. Serial maps to UART0 because ARDUINO_USB_CDC_ON_BOOT is unset
+# (do NOT enable it for release). For development logging over USB-C, layer sdkconfig.debug
+# on top (see docs/ai/07_build_release_and_flasher.md).
+CONFIG_ESP_CONSOLE_UART_DEFAULT=y
+CONFIG_BOOTLOADER_LOG_LEVEL_NONE=y
+CONFIG_LOG_DEFAULT_LEVEL_NONE=y
+CONFIG_ARDUHAL_LOG_DEFAULT_LEVEL_NONE=y

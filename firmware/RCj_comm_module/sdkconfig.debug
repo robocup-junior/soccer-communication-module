@@ -1,0 +1,16 @@
+# Debug overlay — layer ON TOP of sdkconfig.defaults for local development.
+#
+#   idf.py -D SDKCONFIG_DEFAULTS="sdkconfig.defaults;sdkconfig.debug" build flash monitor
+#
+# Re-enables logging and routes the ESP-IDF console to the USB-C port
+# (USB-Serial-JTAG), so you can watch logs over USB while the UART0 line
+# (U3 TX_OUT) stays free for a robot that reads PLAY/STOP from serial.
+#
+# These override the release values in sdkconfig.defaults (last-applied wins).
+# NOTE: Arduino Serial ("PLAY"/"STOP") stays on UART0 in every build — only the
+# IDF/bootloader log stream moves to USB here. Do not ship a release built with
+# this overlay.
+CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG=y
+CONFIG_BOOTLOADER_LOG_LEVEL_INFO=y
+CONFIG_LOG_DEFAULT_LEVEL_INFO=y
+CONFIG_ARDUHAL_LOG_DEFAULT_LEVEL_INFO=y

@@ -2,7 +2,7 @@
 #define DEFINITIONS_H
 
 #define FW_VERSION_MAJOR    0
-#define FW_VERSION_MINOR    96
+#define FW_VERSION_MINOR    97
 #define FW_VERSION          (FW_VERSION_MAJOR*0xFF + FW_VERSION_MINOR)
 
 #define DEFAULT_INDICATOR   "--"
@@ -17,7 +17,7 @@
 #define BLE_CONN_INTERVAL_MIN 12     // 15 ms, units are 1.25 ms
 #define BLE_CONN_INTERVAL_MAX 24     // 30 ms, units are 1.25 ms
 #define BLE_CONN_LATENCY      0
-#define BLE_CONN_TIMEOUT      2000   // 20 s, units are 10 ms
+#define BLE_CONN_TIMEOUT      300    // 3 s, units are 10 ms
 
 // Disconnect button hold time
 #define DISCONNECT_HOLD_TIME    5000
@@ -30,7 +30,7 @@
 
 // Button
 #define BUTTON_GPIO     10
-#define BUTTON2_GPIO     7 
+#define BUTTON2_GPIO     7
 
 // Status pins
 #define OUTPUT1_GPIO    9
@@ -43,7 +43,7 @@
 
 // // Button
 // #define BUTTON_GPIO     18
-// #define BUTTON2_GPIO     9 
+// #define BUTTON2_GPIO     9
 
 // // Status pins
 // #define OUTPUT1_GPIO    20
