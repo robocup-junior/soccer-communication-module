@@ -1,5 +1,5 @@
-CONFIG_IDF_TARGET="esp32c5"
-CONFIG_IDF_TARGET_ESP32C5=y
+CONFIG_IDF_TARGET="esp32c6"
+CONFIG_IDF_TARGET_ESP32C6=y
 CONFIG_FREERTOS_HZ=1000
 CONFIG_AUTOSTART_ARDUINO=n
 CONFIG_BT_ENABLED=y
@@ -9,11 +9,9 @@ CONFIG_BT_NIMBLE_ROLE_PERIPHERAL=y
 CONFIG_BT_NIMBLE_GATT_SERVER=y
 
 # --- Flash size ---
-# Physical part reads 8 MB via JEDEC ID (esptool flash_id: mfr 0x20, dev 0x4017),
-# despite the "N16R4" label in the hardware docs. Match the real chip to avoid the
-# "Detected size larger than image header" warning and bad flash mapping.
-CONFIG_ESPTOOLPY_FLASHSIZE_8MB=y
-CONFIG_ESPTOOLPY_FLASHSIZE="8MB"
+# Legacy ESP32-C6-MINI-1-N4 board = 4 MB flash. (On the C5 master branch this is 8 MB.)
+CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
+CONFIG_ESPTOOLPY_FLASHSIZE="4MB"
 
 # --- Released-build UART cleanliness ---
 # Robots may read PLAY/STOP from the UART0 line (U3 TX_OUT). Keep that line clean:
