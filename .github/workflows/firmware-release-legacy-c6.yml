@@ -1,0 +1,87 @@
+name: Legacy ESP32-C6 Firmware Release
+
+# Builds and publishes the final/maintained firmware for the old 2024 ESP32-C6
+# module. Lives only on the legacy/esp32-c6 branch. No GitHub Pages / web flasher
+# (that stays C5-only on master). See docs/ai/11_legacy_c6_firmware.md.
+
+on:
+  push:
+    tags:
+      - "legacy-c6-*"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: legacy-c6-release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build ESP32-C6 firmware
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Build ESP32-C6 firmware
+        uses: espressif/esp-idf-ci-action@v1
+        with:
+          esp_idf_version: v5.5.4
+          target: esp32c6
+          path: firmware/RCj_comm_module
+
+      - name: Prepare release files
+        uses: espressif/esp-idf-ci-action@v1
+        with:
+          esp_idf_version: v5.5.4
+          target: esp32c6
+          path: firmware/RCj_comm_module
+          command: python ../../tools/prepare_firmware_release.py --project-dir . --web-src ../../web/flasher --output-dir ../../dist --version ${{ github.ref_name }}
+
+      - name: Upload firmware artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: legacy-c6-firmware-release
+          path: dist
+          if-no-files-found: error
+
+  release:
+    name: Publish GitHub Release
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download firmware artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: legacy-c6-firmware-release
+          path: dist
+
+      - name: Create or update release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG_NAME: ${{ github.ref_name }}
+        run: |
+          files=(
+            dist/firmware/*
+            dist/manifest.json
+            dist/version.json
+            dist/release-notes.md
+          )
+
+          if gh release view "$TAG_NAME" >/dev/null 2>&1; then
+            gh release upload "$TAG_NAME" "${files[@]}" --clobber
+          else
+            gh release create "$TAG_NAME" "${files[@]}" \
+              --title "Legacy ESP32-C6 Firmware $TAG_NAME" \
+              --notes-file dist/release-notes.md
+          fi
