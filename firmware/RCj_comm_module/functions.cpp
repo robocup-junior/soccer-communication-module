@@ -8,7 +8,9 @@
 #include "definitions.h"
 #include "ble.h"
 #include "ble_processing.h"
+#include "buzzer.h"
 #include "functions.h"
+#include "status_led.h"
 
 #define DEBOUNCE_DELAY 50 //ms
 #define DOUBLE_PRESS_MAX_DELAY 1000 //ms
@@ -71,6 +73,8 @@ void module_init_gpios() {
     pinMode(OUTPUT2_GPIO, OUTPUT);
     pinMode(BUTTON_GPIO, INPUT);
     pinMode(BUTTON2_GPIO, INPUT);
+    status_led_init();
+    buzzer_init();
 }
 
 void check_disconnect_button() {

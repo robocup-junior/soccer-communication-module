@@ -9,8 +9,8 @@ The V7/2026 schematic is now in the repo and the pin map is **confirmed**:
   [`ESP32C5_RCJ_modul_hardware_reference.md`](ESP32C5_RCJ_modul_hardware_reference.md).
 
 > ✅ **The firmware (`definitions.h`) matches the V7 hardware for every implemented
-> peripheral** (I2C, the two wired buttons, the two robot outputs). The RGB LED, buzzer,
-> third button, and UART1 exist on the board but are **not yet used by firmware** — their
+> peripheral** (I2C, the two wired buttons, the two robot outputs, the RGB LED, and the buzzer). The
+> third button and UART1 exist on the board but are **not yet used by firmware** — their
 > confirmed pins are listed below.
 
 ## Current firmware pin map — ESP32-C5 (active)
@@ -99,11 +99,11 @@ Pins below are from `ESP32C5_RCJ_modul_hardware_reference.md` (read pin-by-pin f
 
 | Feature | GPIO / part | Active level / drive | Firmware status |
 |---------|-------------|----------------------|-----------------|
-| RGB LED Red | **IO27** via R9 470 Ω | active **high** | not implemented |
-| RGB LED Green | **IO24** via R8 470 Ω | active high | not implemented |
-| RGB LED Blue | **IO23** via R7 470 Ω | active high | not implemented |
+| RGB LED Red | **IO27** via R9 470 Ω | active **high** | 50% PWM red when robot output is stopped |
+| RGB LED Green | **IO24** via R8 470 Ω | active high | 50% PWM green when robot output is PLAY |
+| RGB LED Blue | **IO23** via R7 470 Ω | active high | initialized off |
 | RGB LED part | LED1 `TC5050RGBF08-3CJH-AF53A` | common-cathode, PWM-capable per channel | — |
-| Buzzer | **IO26** (pin 27) → Q1 (BC817-40) base via R3 470 Ω | drive high; **passive 2.7 kHz** → use PWM ~2.7 kHz | not implemented |
+| Buzzer | **IO26** (pin 27) → Q1 (BC817-40) base via R3 470 Ω | drive high; **passive 2.7 kHz** → use PWM ~2.7 kHz | implemented for match-state change beeps |
 | Third button **B3** | **IO6** = SW2 | active low, 10 kΩ pull-up (R4) | not wired |
 | UART1 RX / TX | **IO4 / IO5** (U3 pins 5–6) | — | not used |
 | GPIO28 | **IO28** on H1 header pin 2 | — | exposed to robot; could sense power if external ckt added |

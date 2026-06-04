@@ -9,13 +9,24 @@
 #include "esp_err.h"
 
 #include "definitions.h"
+#include "buzzer.h"
 #include "display.h"
+#include "serial_status.h"
+#include "status_led.h"
 #include "state_machine.h"
 
 static stm_states current_state = STM_INIT;
 static bool state_changed = false;
 static bool robot_play = false;
 static uint32_t timer_stop = 0;
+
+static bool is_match_state(stm_states state) {
+    return state == STM_PLAY ||
+           state == STM_STOP ||
+           state == STM_DAMAGE ||
+           state == STM_HALF_TIME ||
+           state == STM_GAME_OVER;
+}
 
 static uint16_t get_remaining_time() {
     uint32_t current_time = millis();
@@ -29,11 +40,13 @@ static void update_output_satet() {
     if (robot_play) {
         digitalWrite(OUTPUT1_GPIO, HIGH);
         digitalWrite(OUTPUT2_GPIO, HIGH);
-        Serial.println("PLAY");
+        status_led_set_play(true);
+        serial_status_println("PLAY");
     } else {
         digitalWrite(OUTPUT1_GPIO, LOW);
         digitalWrite(OUTPUT2_GPIO, LOW);
-        Serial.println("STOP");
+        status_led_set_play(false);
+        serial_status_println("STOP");
     }
 }
 
@@ -135,9 +148,14 @@ int8_t stm_update() {
 
     if (state_changed) {
         update_output_satet();
+        if (is_match_state(current_state)) {
+            buzzer_notify_state_change();
+        }
     }
 
     if (change_noted) state_changed = false;
+
+    buzzer_update();
 
     return ESP_OK;
 }

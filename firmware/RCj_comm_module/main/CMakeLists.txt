@@ -8,8 +8,11 @@ idf_component_register(
         "app_main.cpp"
         "${APP_DIR}/ble.cpp"
         "${APP_DIR}/ble_processing.cpp"
+        "${APP_DIR}/buzzer.cpp"
         "${APP_DIR}/display.cpp"
         "${APP_DIR}/functions.cpp"
+        "${APP_DIR}/serial_status.cpp"
+        "${APP_DIR}/status_led.cpp"
         "${APP_DIR}/state_machine.cpp"
         "${OLED_DIR}/OLEDDisplay.cpp"
         "${OLED_DIR}/OLEDDisplayUi.cpp"
@@ -34,6 +37,7 @@ idf_component_register(
         "${QRCODE_OLED_DIR}"
     REQUIRES
         espressif__arduino-esp32
+        esp_driver_usb_serial_jtag
 )
 
 target_compile_options(${COMPONENT_LIB} PRIVATE -Wno-error=overloaded-virtual)

@@ -36,4 +36,17 @@
 #define OUTPUT1_GPIO    9
 #define OUTPUT2_GPIO    8
 
+// RGB status LED
+#define RGB_LED_RED_GPIO        27
+#define RGB_LED_GREEN_GPIO      24
+#define RGB_LED_BLUE_GPIO       23
+#define RGB_LED_PWM_HZ          1000
+#define RGB_LED_PWM_RESOLUTION  8
+#define RGB_LED_PWM_DUTY        128
+
+// Passive buzzer
+#define BUZZER_GPIO             26
+#define BUZZER_FREQUENCY_HZ     2700
+#define BUZZER_DURATION_MS      80
+
 #endif // DEFINITIONS_H
