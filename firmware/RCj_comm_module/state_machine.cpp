@@ -10,6 +10,7 @@
 
 #include "definitions.h"
 #include "display.h"
+#include "serial_status.h"
 #include "state_machine.h"
 
 static stm_states current_state = STM_INIT;
@@ -29,11 +30,11 @@ static void update_output_satet() {
     if (robot_play) {
         digitalWrite(OUTPUT1_GPIO, HIGH);
         digitalWrite(OUTPUT2_GPIO, HIGH);
-        Serial.println("PLAY");
+        serial_status_println("PLAY");
     } else {
         digitalWrite(OUTPUT1_GPIO, LOW);
         digitalWrite(OUTPUT2_GPIO, LOW);
-        Serial.println("STOP");
+        serial_status_println("STOP");
     }
 }
 

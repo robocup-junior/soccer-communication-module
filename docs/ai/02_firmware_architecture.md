@@ -97,10 +97,12 @@ but is worth noting for any future hardening.
 ## Legacy UART / Serial behavior
 
 - `Serial.begin(115200)` is called at startup.
-- `update_output_satet()` (`state_machine.cpp:32,36`) prints `"PLAY"` / `"STOP"` to `Serial`
-  on every output change. **These are the only active serial prints in the firmware** — they
-  double as a UART status channel for robots that read the serial line instead of the OUT
-  pins.
+- `update_output_satet()` in `state_machine.cpp` prints `"PLAY"` / `"STOP"` through
+  `serial_status_println()` on every output change. That helper mirrors each line to
+  Arduino `Serial` (UART0 on U3) and the ESP32-C5 USB Serial/JTAG port (USB-C, typically
+  `/dev/ttyACM*` on Linux). **These are the only active serial status prints in the firmware**
+  and double as status channels for robots or Raspberry Pi hosts that read serial instead
+  of the OUT pins.
 - All other debug prints are **already commented out**: `ble.cpp:45,64,147,149`,
   `ble_processing.cpp:71`, `functions.cpp:107,121`. (Verified 2026-05-31.) The vendored
   `libraries/**/examples/*.ino` prints are not compiled; the OLED lib's `"[deprecated]"`
@@ -132,15 +134,14 @@ Verified against the generated build config (`build/config/sdkconfig.h`, 2026-05
 | Config | `sdkconfig.defaults` only | `sdkconfig.defaults` + `sdkconfig.debug` |
 | IDF/bootloader logs | OFF (`*_LOG_LEVEL_NONE`) | INFO |
 | IDF console route | UART0 | **USB-C** (`CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG`) |
-| Arduino `Serial` (`PLAY`/`STOP`) | UART0 | UART0 (unchanged) |
+| Arduino `Serial` (`PLAY`/`STOP`) | UART0; mirrored to USB-C by `serial_status` | UART0; mirrored to USB-C by `serial_status` |
 | Built by | CI on every tag | local dev only |
 
 Debug build command:
 `idf.py -D SDKCONFIG_DEFAULTS="sdkconfig.defaults;sdkconfig.debug" build flash monitor`
 (later defaults file wins on conflicting choices). This keeps the UART0 line free for the
 robot while a developer watches logs over USB-C. `Serial`'s `PLAY`/`STOP` stays on UART0 in
-both flavors; mirroring it to USB too would require Arduino USB-CDC build flags
-(`ARDUINO_USB_CDC_ON_BOOT`/`ARDUINO_USB_MODE`) in CMake — not done.
+both flavors, and `serial_status` mirrors those same lines to USB Serial/JTAG for USB hosts.
 
 ## Source files reviewed
 

@@ -5,9 +5,11 @@
 #include "state_machine.h"
 #include "ble_processing.h"
 #include "display.h"
+#include "serial_status.h"
 
 void setup() {
     Serial.begin(UART_SPEED);
+    serial_status_init();
     
     // Init display
     display_init();
