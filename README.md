@@ -65,6 +65,7 @@ cat /dev/ttyACM0
 ```
 
 The onboard buzzer gives a short confirmation beep whenever the referee app changes the match state.
+The RGB status LED is green in PLAY and red when the robot output is stopped.
 
 ### Power it
 
@@ -146,7 +147,7 @@ Check the [open issues](https://github.com/robocup-junior/soccer-communication-m
 ## 🔭 Currently working on
 
 - Robot-to-robot communication
-- RGB LED feedback
+- Additional RGB LED feedback patterns
 
 ## 🏆 Hall of fame
 

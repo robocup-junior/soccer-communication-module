@@ -12,6 +12,7 @@ idf_component_register(
         "${APP_DIR}/display.cpp"
         "${APP_DIR}/functions.cpp"
         "${APP_DIR}/serial_status.cpp"
+        "${APP_DIR}/status_led.cpp"
         "${APP_DIR}/state_machine.cpp"
         "${OLED_DIR}/OLEDDisplay.cpp"
         "${OLED_DIR}/OLEDDisplayUi.cpp"

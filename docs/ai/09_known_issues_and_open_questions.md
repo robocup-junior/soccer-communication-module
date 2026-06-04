@@ -89,9 +89,9 @@ Residual low-risk verifications (do not block re-pinning) are listed in
 3. Is the **UART robot-to-robot** feature still required/planned, or fully deprecated?
 4. Supercapacitor: pure hardware ride-through, or should firmware **detect/announce** a power
    dip (LED/buzzer/BLE notification, safe-state)?
-5. Desired **RGB LED** semantics per state/event and any future buzzer patterns (the tables in
-   [06](06_display_and_user_feedback.md) are guesses). Pins are now known (RGB R/G/B =
-   IO27/IO24/IO23; buzzer = IO26).
+5. Desired future **RGB LED** patterns beyond PLAY=green and stopped=red, plus any future
+   buzzer patterns (the tables in [06](06_display_and_user_feedback.md) are guesses). Pins
+   are now known (RGB R/G/B = IO27/IO24/IO23; buzzer = IO26).
 6. Intended role of the **third button** B3 = **IO6 / SW2** (menu? channel? manual play/stop?).
 7. Purpose of the **`660000 ms`** init timer — keep, fix, or remove?
 8. Should the `.ino` entry point be retired in favor of the IDF `main/` path?

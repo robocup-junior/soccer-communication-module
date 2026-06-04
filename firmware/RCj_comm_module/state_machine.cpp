@@ -12,6 +12,7 @@
 #include "buzzer.h"
 #include "display.h"
 #include "serial_status.h"
+#include "status_led.h"
 #include "state_machine.h"
 
 static stm_states current_state = STM_INIT;
@@ -39,10 +40,12 @@ static void update_output_satet() {
     if (robot_play) {
         digitalWrite(OUTPUT1_GPIO, HIGH);
         digitalWrite(OUTPUT2_GPIO, HIGH);
+        status_led_set_play(true);
         serial_status_println("PLAY");
     } else {
         digitalWrite(OUTPUT1_GPIO, LOW);
         digitalWrite(OUTPUT2_GPIO, LOW);
+        status_led_set_play(false);
         serial_status_println("STOP");
     }
 }

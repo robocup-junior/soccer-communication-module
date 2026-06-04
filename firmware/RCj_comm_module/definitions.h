@@ -36,6 +36,11 @@
 #define OUTPUT1_GPIO    9
 #define OUTPUT2_GPIO    8
 
+// RGB status LED
+#define RGB_LED_RED_GPIO        27
+#define RGB_LED_GREEN_GPIO      24
+#define RGB_LED_BLUE_GPIO       23
+
 // Passive buzzer
 #define BUZZER_GPIO             26
 #define BUZZER_FREQUENCY_HZ     2700

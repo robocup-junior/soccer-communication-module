@@ -52,6 +52,7 @@ ble_processing.cpp  ble_msg_processing()  ── dispatch by msg_id ──►
       ▼
 state_machine.cpp  stm_update()
       ├─ update_output_satet(): OUTPUT1/OUTPUT2 GPIO HIGH (play) or LOW (stop)
+      ├─ status_led_set_play(): RGB LED green for play, red for stopped output
       ├─ buzzer_notify_state_change(): short IO26 beep for match-state changes
       └─ display_screen_*(): render current screen
       │
@@ -98,7 +99,8 @@ delta vs the old code path that is implemented is:
 These are on the board (confirmed in the V7 schematic); pins are known (see
 [05_hardware_mapping.md](05_hardware_mapping.md)):
 
-- **RGB LED** — discrete common-cathode, active-high: R=IO27, G=IO24, B=IO23 (470 Ω each).
+- **RGB LED** — discrete common-cathode, active-high: R=IO27, G=IO24, B=IO23 (470 Ω each);
+  firmware now shows green for PLAY and red for stopped robot output.
 - **Buzzer** — passive 2.7 kHz via NPN Q1 on **IO26** (pin 27); firmware now plays a short
   PWM tone on match-state changes.
 - **Supercapacitor backup** — 15 F (C1); hardware ride-through, no firmware action required.
