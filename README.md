@@ -65,7 +65,7 @@ cat /dev/ttyACM0
 ```
 
 The onboard buzzer gives a short confirmation beep whenever the referee app changes the match state.
-The RGB status LED is green in PLAY and red when the robot output is stopped.
+The RGB status LED is dimmed green in PLAY and dimmed red when the robot output is stopped.
 
 ### Power it
 

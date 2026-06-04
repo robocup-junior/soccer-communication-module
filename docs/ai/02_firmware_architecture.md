@@ -11,7 +11,7 @@
 | BLE processing | `ble_processing.cpp` / `ble_processing.h` | `ble_msg_t`, `ble_msg_id` enum, RTOS queue, command dispatch |
 | State machine | `state_machine.cpp` / `state_machine.h` | `stm_states`, output-pin control, timer |
 | Display | `display.cpp` / `display.h` | SSD1306 rendering per state |
-| Status LED | `status_led.cpp` / `status_led.h` | RGB LED output: green for PLAY, red for stopped output |
+| Status LED | `status_led.cpp` / `status_led.h` | 50% PWM RGB LED output: green for PLAY, red for stopped output |
 | Buzzer | `buzzer.cpp` / `buzzer.h` | Non-blocking 2.7 kHz beep on match-state changes |
 | Functions/util | `functions.cpp` / `functions.h` | MAC string, score/indicator globals, GPIO init, button handling |
 | Assets | `fonts.h`, `images.h` | OLED fonts and boot logo (`RC_logo`) |

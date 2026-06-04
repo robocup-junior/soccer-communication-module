@@ -99,8 +99,8 @@ Pins below are from `ESP32C5_RCJ_modul_hardware_reference.md` (read pin-by-pin f
 
 | Feature | GPIO / part | Active level / drive | Firmware status |
 |---------|-------------|----------------------|-----------------|
-| RGB LED Red | **IO27** via R9 470 Ω | active **high** | red when robot output is stopped |
-| RGB LED Green | **IO24** via R8 470 Ω | active high | green when robot output is PLAY |
+| RGB LED Red | **IO27** via R9 470 Ω | active **high** | 50% PWM red when robot output is stopped |
+| RGB LED Green | **IO24** via R8 470 Ω | active high | 50% PWM green when robot output is PLAY |
 | RGB LED Blue | **IO23** via R7 470 Ω | active high | initialized off |
 | RGB LED part | LED1 `TC5050RGBF08-3CJH-AF53A` | common-cathode, PWM-capable per channel | — |
 | Buzzer | **IO26** (pin 27) → Q1 (BC817-40) base via R3 470 Ω | drive high; **passive 2.7 kHz** → use PWM ~2.7 kHz | implemented for match-state change beeps |

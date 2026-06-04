@@ -42,7 +42,7 @@ while waiting for a connection).
   is mirrored to USB Serial/JTAG for USB hosts.
 - New hardware (silkscreen **"V7 2026"**, branding "robofuze") adds RGB LED, buzzer,
   supercapacitor backup, three buttons, ON/OFF switch, and USB-C direct programming.
-  The RGB LED now shows PLAY as green and stopped output as red, and the buzzer gives a
+  The RGB LED now shows PLAY as dimmed green and stopped output as dimmed red, and the buzzer gives a
   short beep on match-state changes. Third-button behavior is still future work. The
   supercap is hardware-only.
 - Release/flashing is automated: Git tag → GitHub Actions → GitHub Release + GitHub Pages

@@ -6,18 +6,18 @@
 
 void status_led_init()
 {
-    pinMode(RGB_LED_RED_GPIO, OUTPUT);
-    pinMode(RGB_LED_GREEN_GPIO, OUTPUT);
-    pinMode(RGB_LED_BLUE_GPIO, OUTPUT);
+    ledcAttach(RGB_LED_RED_GPIO, RGB_LED_PWM_HZ, RGB_LED_PWM_RESOLUTION);
+    ledcAttach(RGB_LED_GREEN_GPIO, RGB_LED_PWM_HZ, RGB_LED_PWM_RESOLUTION);
+    ledcAttach(RGB_LED_BLUE_GPIO, RGB_LED_PWM_HZ, RGB_LED_PWM_RESOLUTION);
 
-    digitalWrite(RGB_LED_RED_GPIO, LOW);
-    digitalWrite(RGB_LED_GREEN_GPIO, LOW);
-    digitalWrite(RGB_LED_BLUE_GPIO, LOW);
+    ledcWrite(RGB_LED_RED_GPIO, 0);
+    ledcWrite(RGB_LED_GREEN_GPIO, 0);
+    ledcWrite(RGB_LED_BLUE_GPIO, 0);
 }
 
 void status_led_set_play(bool play)
 {
-    digitalWrite(RGB_LED_RED_GPIO, play ? LOW : HIGH);
-    digitalWrite(RGB_LED_GREEN_GPIO, play ? HIGH : LOW);
-    digitalWrite(RGB_LED_BLUE_GPIO, LOW);
+    ledcWrite(RGB_LED_RED_GPIO, play ? 0 : RGB_LED_PWM_DUTY);
+    ledcWrite(RGB_LED_GREEN_GPIO, play ? RGB_LED_PWM_DUTY : 0);
+    ledcWrite(RGB_LED_BLUE_GPIO, 0);
 }
