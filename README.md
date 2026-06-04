@@ -4,7 +4,7 @@
   <img src="./.readme_images/3D_PCB1_2026-05-21%20v41.png?raw=true" alt="RCJ Soccer communication module" width="600">
 </p>
 
-A small referee-to-robot interface for **RoboCupJunior Soccer**. A referee controls the module over **Bluetooth Low Energy (BLE)** from the mobile app, and the module relays the live match state — **PLAY, STOP, penalty, half-time, game over** — to the robot over simple digital outputs or UART.
+A small referee-to-robot interface for **RoboCupJunior Soccer**. A referee controls the module over **Bluetooth Low Energy (BLE)** from the mobile app, and the module relays the live match state — **PLAY, STOP, penalty, half-time, game over** — to the robot or host controller over simple digital outputs, UART, or USB serial.
 
 The current module (board **V7 / 2026**) is built around an **ESP32-C5** and includes an OLED display, three buttons, an RGB LED, a buzzer, a USB-C port for power & flashing, and an on-board **supercapacitor** backup. It does **not** count toward the robot weight limit.
 
@@ -45,14 +45,24 @@ The app's source code lives in its own repository: **[robocup-junior/soccer-refe
 
 ### Read the start/stop signal (pick one method)
 
-The robot must respond to the start/stop signal for the entire game. Connect **one** of the following to a digital input and react whenever the state changes:
+The robot must respond to the start/stop signal for the entire game. Use **one** of the following methods and react whenever the state changes:
 
 | Method         | Pin                            | PLAY / GO        | STOP        |
 |----------------|--------------------------------|------------------|-------------|
 | **Output pin** | `OUT1` or `OUT2`               | **3.3 V** (HIGH) | **0 V** (LOW) |
 | **UART**       | `TX0` (UART0 on the U3 header) | sends `PLAY`     | sends `STOP` |
+| **USB serial** | USB-C                          | sends `PLAY`     | sends `STOP` |
 
 Both outputs carry the same 3.3 V logic-level signal. For 5 V robot inputs, add a level shifter before the robot. Always share **GND** with the robot controller — never connect VIN to a robot GPIO or to the 3.3 V pin.
+
+For a Raspberry Pi or another USB host, connect the module's USB-C port to the host's USB-A port. The ESP32-C5 enumerates as a serial device, typically `/dev/ttyACM0`, and prints one line (`PLAY` or `STOP`) whenever the referee app changes the match state.
+
+On Linux, you can check the USB serial output with:
+
+```sh
+stty -F /dev/ttyACM0 115200 raw -echo
+cat /dev/ttyACM0
+```
 
 ### Power it
 

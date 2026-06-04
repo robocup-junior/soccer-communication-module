@@ -5,11 +5,13 @@
 #include "ble_processing.h"
 #include "display.h"
 #include "functions.h"
+#include "serial_status.h"
 #include "state_machine.h"
 
 static void module_setup()
 {
     Serial.begin(UART_SPEED);
+    serial_status_init();
 
     display_init();
     module_init_gpios();
