@@ -52,6 +52,7 @@ ble_processing.cpp  ble_msg_processing()  ── dispatch by msg_id ──►
       ▼
 state_machine.cpp  stm_update()
       ├─ update_output_satet(): OUTPUT1/OUTPUT2 GPIO HIGH (play) or LOW (stop)
+      ├─ buzzer_notify_state_change(): short IO26 beep for match-state changes
       └─ display_screen_*(): render current screen
       │
       ▼
@@ -92,13 +93,14 @@ delta vs the old code path that is implemented is:
   (commit `ca23261` "Improve BLE command latency and resilience").
 - A self-penalty request via double-press (commit `e423b0d`).
 
-## Planned hardware features (NOT implemented yet)
+## Planned hardware features
 
-These are on the board (confirmed in the V7 schematic) but have **no firmware support yet**;
-pins are now known (see [05_hardware_mapping.md](05_hardware_mapping.md)):
+These are on the board (confirmed in the V7 schematic); pins are known (see
+[05_hardware_mapping.md](05_hardware_mapping.md)):
 
 - **RGB LED** — discrete common-cathode, active-high: R=IO27, G=IO24, B=IO23 (470 Ω each).
-- **Buzzer** — passive 2.7 kHz via NPN Q1 on **IO26** (pin 27); needs PWM tone.
+- **Buzzer** — passive 2.7 kHz via NPN Q1 on **IO26** (pin 27); firmware now plays a short
+  PWM tone on match-state changes.
 - **Supercapacitor backup** — 15 F (C1); hardware ride-through, no firmware action required.
 - **Third button** B3 = **IO6** (SW2) — firmware currently wires only two buttons
   (`BUTTON_GPIO`=IO10/B1, `BUTTON2_GPIO`=IO7/B2).

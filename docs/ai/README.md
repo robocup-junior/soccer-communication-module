@@ -38,11 +38,12 @@ while waiting for a connection).
   for USB-C logging during development.
 - Target chip: **ESP32-C5**, ESP-IDF **v5.5.4**, `espressif/arduino-esp32` `^3.3.0`, **NimBLE**.
 - Runs on the new ESP32-C5 hardware in **legacy-compatibility mode**: same behavior as the
-  old module, only with remapped pins. UART/`Serial` is still used (debug prints + legacy).
+  old module, only with remapped pins. UART/`Serial` is still used and the PLAY/STOP status
+  is mirrored to USB Serial/JTAG for USB hosts.
 - New hardware (silkscreen **"V7 2026"**, branding "robofuze") adds RGB LED, buzzer,
   supercapacitor backup, three buttons, ON/OFF switch, and USB-C direct programming.
-  **None of the RGB LED / buzzer / 3rd-button / supercap features are implemented in
-  firmware yet.**
+  The buzzer now gives a short beep on match-state changes; RGB LED and third-button
+  behavior are still future work. The supercap is hardware-only.
 - Release/flashing is automated: Git tag → GitHub Actions → GitHub Release + GitHub Pages
   web flasher (Web Serial / esptool-js, ESP32-C5 USB reset path).
 

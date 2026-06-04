@@ -11,6 +11,7 @@
 | BLE processing | `ble_processing.cpp` / `ble_processing.h` | `ble_msg_t`, `ble_msg_id` enum, RTOS queue, command dispatch |
 | State machine | `state_machine.cpp` / `state_machine.h` | `stm_states`, output-pin control, timer |
 | Display | `display.cpp` / `display.h` | SSD1306 rendering per state |
+| Buzzer | `buzzer.cpp` / `buzzer.h` | Non-blocking 2.7 kHz beep on match-state changes |
 | Functions/util | `functions.cpp` / `functions.h` | MAC string, score/indicator globals, GPIO init, button handling |
 | Assets | `fonts.h`, `images.h` | OLED fonts and boot logo (`RC_logo`) |
 
@@ -39,7 +40,7 @@ extern "C" void app_main(void) { initArduino(); module_setup(); while (true) { m
 
 1. `Serial.begin(UART_SPEED)` — `UART_SPEED = 115200`. Used for debug prints only.
 2. `display_init()` — `SSD1306 display(0x3c, I2C_SDA_GPIO, I2C_SCL_GPIO)`, `display.init()`.
-3. `module_init_gpios()` — `OUTPUT1_GPIO`/`OUTPUT2_GPIO` as `OUTPUT`; `BUTTON_GPIO`/`BUTTON2_GPIO` as `INPUT` (no explicit pull configured — see hardware doc).
+3. `module_init_gpios()` — `OUTPUT1_GPIO`/`OUTPUT2_GPIO` as `OUTPUT`; `BUTTON_GPIO`/`BUTTON2_GPIO` as `INPUT` (no explicit pull configured — see hardware doc); initializes the IO26 passive buzzer.
 4. `stm_init()` — current state stays `STM_INIT`; sets timer to `660000 ms` (see below / [04](04_state_machine.md)).
 5. `ble_start_server()` — creates the message queue, BLE device, server, service, RX/TX characteristics, and starts advertising.
 
@@ -50,7 +51,8 @@ extern "C" void app_main(void) { initArduino(); module_setup(); while (true) { m
 1. **`ble_msg_processing()`** — pops at most **one** message from the queue (`xQueueReceive`
    with timeout `0`) and dispatches it. Non-blocking; returns immediately if empty.
 2. **`stm_update()`** — runs the current state's handler and, on a state change, updates
-   the output pins.
+   the output pins and starts a short buzzer tone for match states. It also services the
+   non-blocking buzzer timeout.
 3. **`check_disconnect_button()`** — long-press (`DISCONNECT_HOLD_TIME = 5000 ms`) on
    `BUTTON_GPIO` triggers `ble_disconnect()`.
 4. **`check_penalty_button()`** — double-press on `BUTTON_GPIO` **or** `BUTTON2_GPIO`
@@ -90,6 +92,7 @@ but is worth noting for any future hardening.
 | `state_changed` | `state_machine.cpp` | One-shot flag: forces re-render + output update next `stm_update()` |
 | `robot_play` | `state_machine.cpp` | Drives `OUTPUT1/2` HIGH/LOW |
 | `timer_stop` | `state_machine.cpp` | `millis()` deadline for penalty/halftime countdown |
+| `buzzer_active`, `buzzer_stop_time` | `buzzer.cpp` | Non-blocking buzzer timeout state |
 | `device_connected` | `ble.cpp` | BLE connection state |
 | `module_indicator` | `functions.cpp` | 2-char team/robot label (default `"--"`) |
 | `my_score`, `opponent_score` | `functions.cpp` | Scoreboard values |

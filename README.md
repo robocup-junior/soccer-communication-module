@@ -64,6 +64,8 @@ stty -F /dev/ttyACM0 115200 raw -echo
 cat /dev/ttyACM0
 ```
 
+The onboard buzzer gives a short confirmation beep whenever the referee app changes the match state.
+
 ### Power it
 
 Power the module **directly from the robot battery** so it stays alive for the whole match — even when the robot is switched off or removed from the field — to keep a stable BLE connection.
@@ -144,7 +146,7 @@ Check the [open issues](https://github.com/robocup-junior/soccer-communication-m
 ## 🔭 Currently working on
 
 - Robot-to-robot communication
-- RGB LED & buzzer feedback
+- RGB LED feedback
 
 ## 🏆 Hall of fame
 

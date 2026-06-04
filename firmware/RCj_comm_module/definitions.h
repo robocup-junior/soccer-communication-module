@@ -36,4 +36,9 @@
 #define OUTPUT1_GPIO    9
 #define OUTPUT2_GPIO    8
 
+// Passive buzzer
+#define BUZZER_GPIO             26
+#define BUZZER_FREQUENCY_HZ     2700
+#define BUZZER_DURATION_MS      80
+
 #endif // DEFINITIONS_H

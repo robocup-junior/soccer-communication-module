@@ -8,6 +8,7 @@ idf_component_register(
         "app_main.cpp"
         "${APP_DIR}/ble.cpp"
         "${APP_DIR}/ble_processing.cpp"
+        "${APP_DIR}/buzzer.cpp"
         "${APP_DIR}/display.cpp"
         "${APP_DIR}/functions.cpp"
         "${APP_DIR}/serial_status.cpp"
