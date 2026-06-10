@@ -68,7 +68,10 @@ previously-blocking unknowns are resolved (see [05_hardware_mapping.md](05_hardw
   is wrong for V7" concern came from a since-corrected draft of the reference doc and is
   **not** an issue.
 - **RGB LED**: discrete common-cathode, active-high, R=IO27 / G=IO24 / B=IO23 (470 Ω each),
-  PWM-capable.
+  PWM-capable. ⚠️ **Red/Green are physically swapped (confirmed bug, 2026-06-02):** the LED1
+  footprint is wired R,G,B but the real `TC5050RGBF08` part is **G,R,B**, so **IO27 lights
+  green and IO24 lights red** (blue is correct). Firmware must drive IO24 for red / IO27 for
+  green; the proper fix is correcting the footprint in a future board revision.
 - **Buzzer**: passive 2.7 kHz via NPN Q1; GPIO **IO26 (pin 27)** — confirmed by maintainer.
 - **Third button** B3 = IO6 (SW2), active-low w/ 10 kΩ pull-up. Intended function still TBD.
 - **Button pulls**: external 10 kΩ (R4/R5/R6), so `INPUT` (no internal pull-up) is fine.
@@ -77,7 +80,7 @@ previously-blocking unknowns are resolved (see [05_hardware_mapping.md](05_hardw
 
 Residual low-risk verifications (do not block re-pinning) are listed in
 [05_hardware_mapping.md](05_hardware_mapping.md#residual-items-to-verify-low-risk-do-not-block-firmware-re-pinning)
-(OLED pull-ups, RGB polarity on bring-up).
+(OLED pull-ups, RGB polarity on bring-up — note the **confirmed R/G footprint swap** above).
 
 ## Open product/process questions for the maintainer
 

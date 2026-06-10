@@ -98,6 +98,8 @@ These are on the board (confirmed in the V7 schematic) but have **no firmware su
 pins are now known (see [05_hardware_mapping.md](05_hardware_mapping.md)):
 
 - **RGB LED** — discrete common-cathode, active-high: R=IO27, G=IO24, B=IO23 (470 Ω each).
+  ⚠️ **R/G are swapped on the real board** (footprint bug): IO27 lights **green**, IO24
+  lights **red** (blue is fine). See [05](05_hardware_mapping.md) / the hardware reference.
 - **Buzzer** — passive 2.7 kHz via NPN Q1 on **IO26** (pin 27); needs PWM tone.
 - **Supercapacitor backup** — 15 F (C1); hardware ride-through, no firmware action required.
 - **Third button** B3 = **IO6** (SW2) — firmware currently wires only two buttons

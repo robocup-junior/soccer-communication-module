@@ -20,6 +20,9 @@ schematic is provided. Each stage is independently buildable, testable, and reve
 - ✅ Confirmed current firmware pins **match** the V7 board (I2C, both buttons, both outputs).
 - ✅ New-peripheral pins known: RGB R/G/B = IO27/IO24/IO23 (active-high, common-cathode),
   buzzer = IO26 (pin 27), B3 = IO6/SW2, UART1 = IO4/IO5, GPIO28 on H1.
+  ⚠️ **RGB Red/Green are swapped on the real board** (footprint bug): IO27 lights green,
+  IO24 lights red. The Stage 3 RGB driver must account for this (drive IO24=red, IO27=green)
+  or the footprint must be corrected in a board revision. See [05](05_hardware_mapping.md).
 - **Remaining before Stage 3+:** decide whether to keep or delete the commented C6 block in
   `definitions.h`.
 

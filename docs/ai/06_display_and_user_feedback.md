@@ -52,6 +52,12 @@ present but commented out.
 > The following are **design ideas only**. No RGB LED code exists; the pin/type is unknown
 > (see [05](05_hardware_mapping.md)). Listed to seed future design discussion — do not build
 > until the schematic confirms the LED.
+>
+> ⚠️ **When you do implement it:** the on-board LED has its **Red/Green pads swapped**
+> (footprint bug — the real `TC5050RGBF08` is G,R,B but the footprint is R,G,B), so **IO27
+> lights green and IO24 lights red**. Drive IO24 for red / IO27 for green, or fix the
+> footprint in a future board revision. See [05](05_hardware_mapping.md) / the hardware
+> reference.
 
 | State | Proposed LED idea (unconfirmed) |
 |-------|----------------------------------|

@@ -53,9 +53,9 @@ Read directly from the U1 (ESP32-C5-WROOM-1-N16R4) schematic symbol pin-by-pin.
 | IO13 | 13 | GPIO13 | USB D-            | USB1 via R10 33Ω |
 | IO14 | 14 | GPIO14 | USB D+            | USB1 via R11 33Ω |
 | IO23 | 20 | B      | LED Blue          | LED1 via R7 470Ω, active high |
-| IO24 | 22 | G      | LED Green         | LED1 via R8 470Ω, active high |
+| IO24 | 22 | G      | LED Green ⚠️ *(lights **Red** — see LED1 note)* | LED1 via R8 470Ω, active high |
 | IO26 | 27 | BUZZER | Buzzer driver     | Q1 base via R3 470Ω, drive high to activate |
-| IO27 | 18 | R      | LED Red           | LED1 via R9 470Ω, active high |
+| IO27 | 18 | R      | LED Red ⚠️ *(lights **Green** — see LED1 note)* | LED1 via R9 470Ω, active high |
 | IO28 | 15 | GPIO28 | Robot GPIO        | H1 header pin 2, exposed to robot connector |
 | RX0  | 24 | RX_OUT | UART0 RX          | U3 connector; primary serial / flashing |
 | TX0  | 25 | TX_OUT | UART0 TX          | U3 connector; primary serial / flashing |
@@ -80,19 +80,30 @@ Three tactile push buttons, all using **TS-1088-AR02016** footprint. All are **a
 
 ## RGB LED — LED1
 
+> ⚠️ **Red/Green are SWAPPED on the real board — schematic footprint bug.**
+> The `TC5050RGBF08-3CJH-AF53A` part's physical pin order is **G, R, B**, but the LED1
+> footprint in the schematic is wired as **R, G, B**, so the Red and Green pads are
+> reversed on the PCB. The labels below (and the "Schematic" column) reflect the
+> *schematic*; the **As-built** column is what actually lights up. Confirmed on hardware
+> **2026-06-02** by flashing firmware that drives play→green and seeing red instead.
+> Blue is unaffected.
+
 | Parameter | Value |
 |-----------|-------|
 | Part | TC5050RGBF08-3CJH-AF53A |
 | Type | Common cathode RGB LED |
 | Current limiting | R7, R8, R9 — all 470Ω to 3.3V rail |
 
-| Color | GPIO  | Resistor |
-|-------|-------|----------|
-| Red   | IO27  | R9 470Ω  |
-| Green | IO24  | R8 470Ω  |
-| Blue  | IO23  | R7 470Ω  |
+| GPIO  | Resistor | Schematic label | **As-built (real) color** |
+|-------|----------|-----------------|---------------------------|
+| IO27  | R9 470Ω  | Red             | 🟢 **Green** |
+| IO24  | R8 470Ω  | Green           | 🔴 **Red** |
+| IO23  | R7 470Ω  | Blue            | 🔵 Blue (correct) |
 
-**Firmware note:** Each channel is driven independently. Drive the GPIO high to turn the color on. PWM is supported on all three channels for brightness control and color mixing.
+**Firmware note:** Each channel is driven independently; drive the GPIO high to turn the
+color on, and PWM is supported on all three for brightness/mixing. **Because of the
+footprint swap, firmware must drive IO24 to show red and IO27 to show green** (until the
+footprint is corrected in a future board revision — the proper long-term fix).
 
 ---
 
@@ -266,7 +277,7 @@ Dedicated I2C header for OLED display (see I2C section above).
 
 ## Firmware Quick-Start Checklist
 
-- [ ] Set IO27, IO24, IO23 as `OUTPUT` for R/G/B LED channels
+- [ ] Set IO27, IO24, IO23 as `OUTPUT` for R/G/B LED channels — ⚠️ **R/G swapped on the real board: IO27 lights green, IO24 lights red** (footprint bug, see "RGB LED — LED1")
 - [ ] Set IO10, IO7, IO6 as `INPUT` (pull-up) for buttons B1/B2/B3 (active low)
 - [ ] Set IO26 as `OUTPUT` for buzzer; use PWM at ~2700 Hz
 - [ ] Initialize I2C on SDA=IO2, SCL=IO3 for OLED

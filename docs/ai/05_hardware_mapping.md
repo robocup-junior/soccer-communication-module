@@ -99,10 +99,10 @@ Pins below are from `ESP32C5_RCJ_modul_hardware_reference.md` (read pin-by-pin f
 
 | Feature | GPIO / part | Active level / drive | Firmware status |
 |---------|-------------|----------------------|-----------------|
-| RGB LED Red | **IO27** via R9 470 Ω | active **high** | not implemented |
-| RGB LED Green | **IO24** via R8 470 Ω | active high | not implemented |
+| RGB LED Red | **IO27** via R9 470 Ω — ⚠️ **lights GREEN** (R/G footprint swap) | active **high** | not implemented |
+| RGB LED Green | **IO24** via R8 470 Ω — ⚠️ **lights RED** (R/G footprint swap) | active high | not implemented |
 | RGB LED Blue | **IO23** via R7 470 Ω | active high | not implemented |
-| RGB LED part | LED1 `TC5050RGBF08-3CJH-AF53A` | common-cathode, PWM-capable per channel | — |
+| RGB LED part | LED1 `TC5050RGBF08-3CJH-AF53A` | common-cathode, PWM-capable per channel; ⚠️ **R/G pads swapped vs schematic** (real part is G,R,B) | — |
 | Buzzer | **IO26** (pin 27) → Q1 (BC817-40) base via R3 470 Ω | drive high; **passive 2.7 kHz** → use PWM ~2.7 kHz | not implemented |
 | Third button **B3** | **IO6** = SW2 | active low, 10 kΩ pull-up (R4) | not wired |
 | UART1 RX / TX | **IO4 / IO5** (U3 pins 5–6) | — | not used |
@@ -119,6 +119,12 @@ Pins below are from `ESP32C5_RCJ_modul_hardware_reference.md` (read pin-by-pin f
 2. **RGB LED part description** says "common cathode" while channels are driven **active
    high through a series resistor to the GPIO** — consistent with common-cathode; confirm
    polarity on first bring-up.
+3. ✅ **RGB Red/Green are SWAPPED (confirmed bug, 2026-06-02).** The LED1 footprint is wired
+   R,G,B but the real `TC5050RGBF08` part is **G,R,B**, so **IO27 lights green and IO24
+   lights red** (IO23/blue is fine). Firmware must drive IO24 for red and IO27 for green
+   until the footprint is fixed in a future board revision. See
+   [`ESP32C5_RCJ_modul_hardware_reference.md`](ESP32C5_RCJ_modul_hardware_reference.md) →
+   "RGB LED — LED1".
 
 > Buzzer GPIO confirmed by maintainer (2026-05-31): **IO26 (pin 27)** — no longer in doubt.
 
