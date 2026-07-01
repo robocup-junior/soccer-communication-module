@@ -46,7 +46,8 @@ static void state_init() {
     stm_set_state(STM_DISCONNECTED);
 }
 
-static void state_wait_connecting() {
+static void state_disconnected() {
+    robot_play = false;          // fail-safe: stop the robot when the phone link drops
     display_screen_wait_for_connection();
 }
 
@@ -111,7 +112,7 @@ int8_t stm_update() {
             break;
         case STM_DISCONNECTED:
             if (state_changed) {
-                state_wait_connecting();
+                state_disconnected();
             }
             break;
         case STM_PLAY:
